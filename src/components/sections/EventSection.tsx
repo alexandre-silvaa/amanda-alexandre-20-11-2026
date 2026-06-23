@@ -1,59 +1,64 @@
-import type { InviteData, InfoBullet } from '../../data/weeding-data'
-import { ActionButton } from '../shared/ActionButton'
-import { IconTextItem } from '../shared/IconTextItem'
-import { MetaBar } from '../shared/MetaBar'
-import { PhotoPlaceholder } from '../shared/PhotoPlaceholder'
-import { SectionShell } from '../shared/SectionShell'
-import { SectionTitle } from '../shared/SectionTitle'
+import type { InviteData, InfoBullet } from "../../data/weeding-data";
+import { ActionButton } from "../shared/ActionButton";
+import { IconTextItem } from "../shared/IconTextItem";
+import { MetaBar } from "../shared/MetaBar";
+import { PhotoPlaceholder } from "../shared/PhotoPlaceholder";
+import { SectionShell } from "../shared/SectionShell";
+import { SectionTitle } from "../shared/SectionTitle";
 
 type EventSectionProps = {
-  data: InviteData
-}
+  data: InviteData;
+};
 
-function iconByType(type: InfoBullet['icon']) {
-  if (type === 'clock') {
+function iconByType(type: InfoBullet["icon"]) {
+  if (type === "clock") {
     return (
       <span className="inline-grid h-[34px] w-[34px] place-items-center border border-[#1f1f1f] text-[1.2rem]">
         ◷
       </span>
-    )
+    );
   }
 
-  if (type === 'camera') {
+  if (type === "camera") {
     return (
       <span className="inline-grid h-[34px] w-[34px] place-items-center border border-[#1f1f1f] text-[1.2rem]">
         ◉
       </span>
-    )
+    );
   }
 
-  if (type === 'money') {
+  if (type === "money") {
     return (
       <span className="inline-grid h-[34px] w-[34px] place-items-center border border-[#1f1f1f] text-[1.2rem]">
         $
       </span>
-    )
+    );
   }
 
   return (
     <span className="inline-grid h-[34px] w-[34px] place-items-center border border-[#1f1f1f] text-[1.2rem]">
       ✦
     </span>
-  )
+  );
 }
 
 export function EventSection({ data }: EventSectionProps) {
   return (
     <SectionShell id="evento">
-      <MetaBar city={data.city} dateLabel={data.newspaperDate} />
+      <MetaBar shouldNotShowEndBorder />
 
       <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <article>
           <SectionTitle>CRONOGRAMA</SectionTitle>
           <ol className="m-0 list-none border-l-2 border-l-[#222] pl-5">
             {data.timeline.map((item) => (
-              <li key={item.time} className="relative mb-4 pl-4 before:absolute before:left-[-1.52rem] before:top-2 before:h-[9px] before:w-[9px] before:rounded-full before:bg-black before:content-['']">
-                <time className="block font-['Garet'] text-[1.7rem]">{item.time}</time>
+              <li
+                key={item.time}
+                className="relative mb-4 pl-4 before:absolute before:left-[-1.52rem] before:top-2 before:h-[9px] before:w-[9px] before:rounded-full before:bg-black before:content-['']"
+              >
+                <time className="block font-['Garet'] text-[1.7rem]">
+                  {item.time}
+                </time>
                 <p className="m-0 text-[clamp(1.8rem,2.4vw,2.4rem)] leading-none">
                   {item.title}
                 </p>
@@ -84,12 +89,18 @@ export function EventSection({ data }: EventSectionProps) {
           <SectionTitle className="mt-4">INFORMACOES</SectionTitle>
           <ul className="m-0 list-none p-0">
             {data.infoBullets.map((item) => (
-              <IconTextItem key={item.text} icon={iconByType(item.icon)} text={item.text} />
+              <IconTextItem
+                key={item.text}
+                icon={iconByType(item.icon)}
+                text={item.text}
+              />
             ))}
           </ul>
 
           <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <ActionButton href={data.locationLinks.church}>Ver igreja no mapa</ActionButton>
+            <ActionButton href={data.locationLinks.church}>
+              Ver igreja no mapa
+            </ActionButton>
             <ActionButton href={data.locationLinks.restaurant}>
               Ver restaurante no mapa
             </ActionButton>
@@ -97,5 +108,5 @@ export function EventSection({ data }: EventSectionProps) {
         </article>
       </div>
     </SectionShell>
-  )
+  );
 }
