@@ -1,95 +1,100 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @font-face {
-  font-family: 'Allura';
-  src: url('./assets/fonts/Allura/Allura-Regular.ttf') format('truetype');
+  font-family: "Allura";
+  src: url("./assets/fonts/Allura/Allura-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Anton';
-  src: url('./assets/fonts/Anton/Anton-Regular.ttf') format('truetype');
+  font-family: "Anton";
+  src: url("./assets/fonts/Anton/Anton-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Crimson Pro';
-  src: url('./assets/fonts/Crimson_Pro/CrimsonPro-VariableFont_wght.ttf') format('truetype');
+  font-family: "Crimson Pro";
+  src: url("./assets/fonts/Crimson_Pro/CrimsonPro-VariableFont_wght.ttf")
+    format("truetype");
   font-weight: 200 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Crimson Pro';
-  src: url('./assets/fonts/Crimson_Pro/CrimsonPro-Italic-VariableFont_wght.ttf') format('truetype');
+  font-family: "Crimson Pro";
+  src: url("./assets/fonts/Crimson_Pro/CrimsonPro-Italic-VariableFont_wght.ttf")
+    format("truetype");
   font-weight: 200 900;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Engravers Old English';
-  src: url('./assets/fonts/engravers-old-english/OPTIEngraversOldEnglish.otf') format('opentype');
+  font-family: "Engravers Old English";
+  src: url("./assets/fonts/engravers-old-english/OPTIEngraversOldEnglish.otf")
+    format("opentype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Garet';
-  src: url('./assets/fonts/garet/Garet-Book.woff2') format('woff2');
+  font-family: "Garet";
+  src: url("./assets/fonts/garet/Garet-Book.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Garet';
-  src: url('./assets/fonts/garet/Garet-Heavy.woff2') format('woff2');
+  font-family: "Garet";
+  src: url("./assets/fonts/garet/Garet-Heavy.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Georgia Pro';
-  src: url('./assets/fonts/Georgia Pro/GeorgiaPro-Regular.ttf') format('truetype');
+  font-family: "Georgia Pro";
+  src: url("./assets/fonts/Georgia Pro/GeorgiaPro-Regular.ttf")
+    format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Georgia Pro';
-  src: url('./assets/fonts/Georgia Pro/GeorgiaPro-Italic.ttf') format('truetype');
+  font-family: "Georgia Pro";
+  src: url("./assets/fonts/Georgia Pro/GeorgiaPro-Italic.ttf")
+    format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Georgia Pro';
-  src: url('./assets/fonts/Georgia Pro/GeorgiaPro-SemiBold.ttf') format('truetype');
+  font-family: "Georgia Pro";
+  src: url("./assets/fonts/Georgia Pro/GeorgiaPro-SemiBold.ttf")
+    format("truetype");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Halimun';
-  src: url('./assets/fonts/Halimun/Halimun.ttf') format('truetype');
+  font-family: "Halimun";
+  src: url("./assets/fonts/Halimun/Halimun.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @layer base {
-
   *,
   *::before,
   *::after {
@@ -104,7 +109,14 @@
   }
 
   body {
-    font-family: 'Crimson Pro', 'Georgia Pro', Georgia, serif;
+    font-family: "Crimson Pro", "Georgia Pro", Georgia, serif;
     line-height: 1.35;
+  }
+}
+
+@layer utilities {
+  .text-fluid-copy {
+    font-size: clamp(1.45rem, 1.6vw, 1.65rem);
+    line-height: 1.25;
   }
 }
