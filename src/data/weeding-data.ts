@@ -133,8 +133,8 @@ export const inviteData: InviteData = {
     { time: "20:00", title: "Fotos" },
   ],
   addresses: {
-    church: "Paz Church: R. Lituânia, 918 - Jardim Europa",
-    restaurant: "Via Brasil: R. Fernando Silva, 110 - Jardim Astro",
+    church: "R. Lituânia, 918 - Jardim Europa",
+    restaurant: "R. Fernando Silva, 110 - Jardim Astro",
   },
   locationLinks: {
     church:

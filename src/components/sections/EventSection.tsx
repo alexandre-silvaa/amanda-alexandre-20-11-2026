@@ -49,27 +49,29 @@ export function EventSection({ data }: EventSectionProps) {
 
       <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <article>
-          <SectionTitle>CRONOGRAMA</SectionTitle>
+          <SectionTitle className="text-fluid-copy">CRONOGRAMA</SectionTitle>
           <ol className="m-0 list-none border-l-2 border-l-[#222] pl-5">
             {data.timeline.map((item) => (
               <li
                 key={item.time}
-                className="relative mb-4 pl-4 before:absolute before:left-[-1.52rem] before:top-2 before:h-[9px] before:w-[9px] before:rounded-full before:bg-black before:content-['']"
+                className="relative mb-4 pl-2 before:absolute before:left-[-1.52rem] before:top-2 before:h-[9px] before:w-[9px] before:rounded-full before:bg-black before:content-['']"
               >
-                <time className="block font-['Garet'] text-[1.7rem]">
+                <time className="block font-['Garet'] text-[1rem]">
                   {item.time}
                 </time>
-                <p className="m-0 text-[clamp(1.8rem,2.4vw,2.4rem)] leading-none">
-                  {item.title}
-                </p>
+                <p className="m-0 text-fluid-copy leading-none">{item.title}</p>
               </li>
             ))}
           </ol>
 
-          <div className="mt-2">
-            <h4 className="my-2 font-['Garet'] text-[1.4rem]">Enderecos:</h4>
-            <p className="m-0 text-[1.65rem]">{data.addresses.church}</p>
-            <p className="m-0 text-[1.65rem]">{data.addresses.restaurant}</p>
+          <div className="mt-2 ">
+            <strong className="my-2 text-[1.5rem]">Endereços:</strong>
+            <p className="m-0 text-fluid-copy">
+              <strong>Paz Church:</strong> {data.addresses.church}
+            </p>
+            <p className="m-0 text-fluid-copy">
+              <strong>Via Brasil:</strong> {data.addresses.restaurant}
+            </p>
           </div>
 
           <PhotoPlaceholder
@@ -86,7 +88,9 @@ export function EventSection({ data }: EventSectionProps) {
             className="min-h-[370px] rounded-[14px]"
           />
 
-          <SectionTitle className="mt-4">INFORMACOES</SectionTitle>
+          <SectionTitle className="mt-4 text-fluid-copy">
+            INFORMAÇÕES
+          </SectionTitle>
           <ul className="m-0 list-none p-0">
             {data.infoBullets.map((item) => (
               <IconTextItem
