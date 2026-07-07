@@ -34,7 +34,7 @@ export function EventSection({ data }: EventSectionProps) {
       <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <article>
           <SectionTitle className="text-fluid-copy">CRONOGRAMA</SectionTitle>
-          <div className="flex w-full justify-center gap-4 flex-col bg-red-500">
+          <div className="flex w-full justify-center gap-4 flex-col ">
             <ol className="m-0 list-none border-l-2 border-l-[#222] pl-5 ">
               {data.timeline.map((item) => (
                 <li
@@ -69,7 +69,7 @@ export function EventSection({ data }: EventSectionProps) {
           />
         </article>
 
-        <article className="flex flex-col gap-4 h-full bg-red-500">
+        <article className="flex flex-col gap-4 h-full ">
           {/* Foto */}
           <div className="order-2 lg:order-1">
             <PhotoPlaceholder

@@ -1,5 +1,27 @@
 # React + TypeScript + Vite
 
+## Pix Mercado Pago
+
+O fluxo de presentes cria pagamentos Pix pela Orders API do Mercado Pago no
+endpoint server-side `/api/create-pix-order`.
+
+Configure as variáveis de ambiente:
+
+```env
+VITE_MERCADO_PAGO_PUBLIC_KEY=TEST_SUA_PUBLIC_KEY
+MERCADO_PAGO_ACCESS_TOKEN=APP_USR_SEU_ACCESS_TOKEN
+MERCADO_PAGO_PIX_EXPIRATION_TIME=PT24H
+```
+
+`VITE_MERCADO_PAGO_PUBLIC_KEY` configura o SDK no frontend com
+`loadMercadoPago()`. `MERCADO_PAGO_ACCESS_TOKEN` fica apenas no servidor e é
+usado para criar a order no Mercado Pago.
+
+O frontend pede o e-mail do convidado no modal de presente e envia esse e-mail
+com o presente escolhido para `/api/create-pix-order`. O servidor cria uma order
+`online` com `processing_mode: "automatic"` e `payment_method.id: "pix"`,
+retornando apenas os dados necessários para renderizar o QR Code.
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:

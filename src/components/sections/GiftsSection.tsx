@@ -1,24 +1,40 @@
-import type { InviteData } from '../../data/weeding-data'
-import { ActionButton } from '../shared/ActionButton'
-import { SectionShell } from '../shared/SectionShell'
-import { SectionTitle } from '../shared/SectionTitle'
+import { useState } from "react";
+import { gifts } from "../../data/gifts-data";
+import { useGiftFilters } from "../../hooks/useGiftFilters";
+import type { Gift } from "../../types/gifts.types";
+import { GiftFilters } from "../shared/GIfts/GiftFIlters";
+import { GiftGrid } from "../shared/GIfts/GiftGrid";
+import { GiftModal } from "../shared/GIfts/GiftModal";
+import { MetaBar } from "../shared/MetaBar";
+import { SectionShell } from "../shared/SectionShell";
 
-type GiftsSectionProps = {
-  data: InviteData
-}
+export function GiftsSection() {
+  const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
 
-export function GiftsSection({ data }: GiftsSectionProps) {
-  const hasLink = Boolean(data.gifts.url.trim())
+  const filters = useGiftFilters({
+    gifts,
+  });
 
   return (
-    <SectionShell id="presentes" className="border-y border-y-solid border-y-[#202020]">
-      <article className="grid gap-3 border border-[#222] bg-[#f8f7f5] p-4 text-center">
-        <SectionTitle>{data.gifts.title}</SectionTitle>
-        <p className="m-0 text-[1.8rem]">{data.gifts.description}</p>
-        <ActionButton href={hasLink ? data.gifts.url : undefined} disabled={!hasLink}>
-          {hasLink ? 'Acessar lista de presentes' : 'Link da lista em breve'}
-        </ActionButton>
-      </article>
+    <SectionShell id="presentes">
+      <MetaBar shouldNotShowEndBorder>
+        <section className="mx-auto max-w-7xl py-4 text-fluid-copy">
+          <header className="mb-10">
+            <h1 className="text-4xl font-bold">LISTAS DE PRESENTES</h1>
+
+            <p className="mt-2 text-zinc-500">
+              Escolha um presente e faça parte da construção da nossa nova
+              história.
+            </p>
+          </header>
+          <GiftFilters {...filters} />
+          <GiftGrid gifts={filters.filteredGifts} onSelect={setSelectedGift} />
+          <GiftModal
+            gift={selectedGift}
+            onClose={() => setSelectedGift(null)}
+          />{" "}
+        </section>
+      </MetaBar>
     </SectionShell>
-  )
+  );
 }
