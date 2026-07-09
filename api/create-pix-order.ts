@@ -7,23 +7,20 @@ interface GiftPixOrderRequest {
   amount?: number;
   externalReference?: string;
   payerEmail?: string;
+  documentType?: string;
+  documentNumber?: string;
 }
 
-interface MercadoPagoOrderResponse {
-  id?: string;
+interface MercadoPagoPaymentResponse {
+  id?: number | string;
   status?: string;
   status_detail?: string;
-  transactions?: {
-    payments?: Array<{
-      id?: string;
-      status?: string;
-      status_detail?: string;
-      payment_method?: {
-        ticket_url?: string;
-        qr_code?: string;
-        qr_code_base64?: string;
-      };
-    }>;
+  point_of_interaction?: {
+    transaction_data?: {
+      ticket_url?: string;
+      qr_code?: string;
+      qr_code_base64?: string;
+    };
   };
 }
 
@@ -65,6 +62,14 @@ function readBody(request: IncomingMessage) {
   });
 }
 
+function readQueryValue(url: string | undefined, key: string) {
+  if (!url) return null;
+
+  const search = url.includes("?") ? url.slice(url.indexOf("?") + 1) : "";
+  const params = new URLSearchParams(search);
+  return params.get(key);
+}
+
 function formatAmount(amount: number) {
   return amount.toFixed(2);
 }
@@ -73,21 +78,20 @@ function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-function normalizeOrder(order: MercadoPagoOrderResponse) {
-  const payment = order.transactions?.payments?.[0];
-  const method = payment?.payment_method;
+function normalizePayment(payment: MercadoPagoPaymentResponse) {
+  const transactionData = payment.point_of_interaction?.transaction_data;
 
-  if (!method?.qr_code) {
+  if (!transactionData?.qr_code) {
     throw new Error("O Mercado Pago não retornou o QR Code do Pix.");
   }
 
   return {
-    orderId: order.id,
-    paymentId: payment?.id,
-    status: payment?.status ?? order.status,
-    statusDetail: payment?.status_detail ?? order.status_detail,
-    qrCode: method.qr_code,
-    qrCodeBase64: method.qr_code_base64,
+    paymentId: payment.id?.toString(),
+    status: payment.status,
+    statusDetail: payment.status_detail,
+    ticketUrl: transactionData.ticket_url,
+    qrCode: transactionData.qr_code,
+    qrCodeBase64: transactionData.qr_code_base64,
   };
 }
 
@@ -96,7 +100,7 @@ function getMercadoPagoErrorMessage(status: number) {
     return [
       "Mercado Pago recusou a autorização para criar o Pix.",
       "Confira se MERCADO_PAGO_ACCESS_TOKEN é o Access Token privado da conta vendedora,",
-      "se ele pertence ao ambiente correto e se essa conta tem Pix/Orders API habilitados.",
+      "se ele pertence ao ambiente correto e se essa conta tem Pix habilitado.",
     ].join(" ");
   }
 
@@ -107,21 +111,67 @@ export default async function handler(
   request: IncomingMessage,
   response: ServerResponse,
 ) {
-  if (request.method !== "POST") {
-    sendJson(response, 405, { error: "Método não permitido." });
-    return;
-  }
-
-  const accessToken = process.env.MERCADO_PAGO_ACCESS_TOKEN;
-
-  console.log(
-    `[${new Date().toISOString()}] [${request.method}] ${request.url} - Access Token: ${accessToken}`,
-  );
+  const accessToken =
+    process.env.MERCADO_PAGO_ACCESS_TOKEN ??
+    process.env.VITE_MERCADO_PAGO_ACCESS_TOKEN;
 
   if (!accessToken) {
     sendJson(response, 500, {
-      error: "Configure MERCADO_PAGO_ACCESS_TOKEN no servidor.",
+      error: "Configure MERCADO_PAGO_ACCESS_TOKEN no servidor e reinicie Vite.",
     });
+    return;
+  }
+
+  if (request.method === "GET") {
+    try {
+      const paymentId = readQueryValue(request.url, "paymentId");
+
+      if (!paymentId) {
+        sendJson(response, 400, { error: "Informe paymentId." });
+        return;
+      }
+
+      const mercadoPagoResponse = await fetch(
+        `https://api.mercadopago.com/v1/payments/${paymentId}`,
+        {
+          headers: {
+            accept: "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      const data = (await mercadoPagoResponse.json()) as
+        | MercadoPagoPaymentResponse
+        | MercadoPagoErrorResponse;
+
+      if (!mercadoPagoResponse.ok) {
+        sendJson(response, mercadoPagoResponse.status, {
+          error: getMercadoPagoErrorMessage(mercadoPagoResponse.status),
+          details: data,
+        });
+        return;
+      }
+
+      sendJson(
+        response,
+        200,
+        normalizePayment(data as MercadoPagoPaymentResponse),
+      );
+    } catch (error) {
+      sendJson(response, 500, {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Erro inesperado ao consultar Pix.",
+      });
+    }
+
+    return;
+  }
+
+  if (request.method !== "POST") {
+    sendJson(response, 405, { error: "Método não permitido." });
     return;
   }
 
@@ -129,6 +179,8 @@ export default async function handler(
     const body = await readBody(request);
     const amount = Number(body.amount);
     const payerEmail = body.payerEmail?.trim().toLowerCase();
+    const documentType = body.documentType?.trim().toUpperCase();
+    const documentNumber = body.documentNumber?.trim();
 
     if (!Number.isFinite(amount) || amount <= 0) {
       sendJson(response, 400, { error: "Valor do presente inválido." });
@@ -140,12 +192,19 @@ export default async function handler(
       return;
     }
 
+    if (!documentType || !documentNumber) {
+      sendJson(response, 400, {
+        error: "Informe tipo e número do documento.",
+      });
+      return;
+    }
+
     const totalAmount = formatAmount(amount);
     const externalReference =
       body.externalReference ?? `gift-${body.giftId ?? randomUUID()}`;
 
     const mercadoPagoResponse = await fetch(
-      "https://api.mercadopago.com/v1/orders",
+      "https://api.mercadopago.com/v1/payments",
       {
         method: "POST",
         headers: {
@@ -155,32 +214,23 @@ export default async function handler(
           "X-Idempotency-Key": randomUUID(),
         },
         body: JSON.stringify({
-          type: "online",
-          total_amount: totalAmount,
+          transaction_amount: Number(totalAmount),
+          description: `${body.name ?? "Presente"} - ${externalReference}`,
+          payment_method_id: "pix",
           external_reference: externalReference,
-          processing_mode: "automatic",
-          transactions: {
-            payments: [
-              {
-                amount: totalAmount,
-                payment_method: {
-                  id: "pix",
-                  type: "bank_transfer",
-                },
-                expiration_time:
-                  process.env.MERCADO_PAGO_PIX_EXPIRATION_TIME ?? "PT24H",
-              },
-            ],
-          },
           payer: {
             email: payerEmail,
+            identification: {
+              type: documentType,
+              number: documentNumber,
+            },
           },
         }),
       },
     );
 
     const data = (await mercadoPagoResponse.json()) as
-      | MercadoPagoOrderResponse
+      | MercadoPagoPaymentResponse
       | MercadoPagoErrorResponse;
 
     if (!mercadoPagoResponse.ok) {
@@ -191,7 +241,11 @@ export default async function handler(
       return;
     }
 
-    sendJson(response, 200, normalizeOrder(data as MercadoPagoOrderResponse));
+    sendJson(
+      response,
+      200,
+      normalizePayment(data as MercadoPagoPaymentResponse),
+    );
   } catch (error) {
     sendJson(response, 500, {
       error:
