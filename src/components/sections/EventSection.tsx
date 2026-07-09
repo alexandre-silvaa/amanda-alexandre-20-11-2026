@@ -3,6 +3,7 @@ import FotoAbraco from "../../assets/abraco-porta.jpeg";
 import FotoCaminhando from "../../assets/caminhando.jpg";
 import type { InfoBullet, InviteData } from "../../data/weeding-data";
 import { IconTextItem } from "../shared/IconTextItem";
+import { LocationMap } from "../shared/LocationMap";
 import { MetaBar } from "../shared/MetaBar";
 import { PhotoPlaceholder } from "../shared/PhotoPlaceholder";
 import { SectionShell } from "../shared/SectionShell";
@@ -35,7 +36,7 @@ export function EventSection({ data }: EventSectionProps) {
 
       <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2">
         <article>
-          <SectionTitle className="text-fluid-copy">CRONOGRAMA</SectionTitle>
+          <SectionTitle>CRONOGRAMA</SectionTitle>
           <div className="flex w-full justify-center gap-4 flex-col ">
             <ol className="m-0 list-none border-l-2 border-l-[#222] pl-5 ">
               {data.timeline.map((item) => (
@@ -46,22 +47,10 @@ export function EventSection({ data }: EventSectionProps) {
                   <time className="block font-['Garet'] text-[1rem]">
                     {item.time}
                   </time>
-                  <p className="m-0 text-fluid-copy leading-none">
-                    {item.title}
-                  </p>
+                  <p className="m-0 text-fluid leading-none">{item.title}</p>
                 </li>
               ))}
             </ol>
-
-            <div className="mt-2">
-              <strong className="my-2 text-fluid-copy">Endereços:</strong>
-              <p className="m-0 text-fluid-copy">
-                <strong>Paz Church:</strong> {data.addresses.church}
-              </p>
-              <p className="m-0 text-fluid-copy">
-                <strong>Via Brasil:</strong> {data.addresses.restaurant}
-              </p>
-            </div>
           </div>
 
           <PhotoPlaceholder
@@ -73,7 +62,6 @@ export function EventSection({ data }: EventSectionProps) {
         </article>
 
         <article className="flex flex-col gap-4 h-full ">
-          {/* Foto */}
           <div className="order-2 lg:order-1">
             <PhotoPlaceholder
               label="Foto de abraço na porta"
@@ -83,13 +71,10 @@ export function EventSection({ data }: EventSectionProps) {
             />
           </div>
 
-          {/* Informações */}
           <div className="order-1 lg:order-2">
-            <SectionTitle className="mt-4 text-fluid-copy">
-              INFORMAÇÕES
-            </SectionTitle>
+            <SectionTitle>INFORMAÇÕES</SectionTitle>
 
-            <ul className="m-0 list-none p-0">
+            <ul className="m-0 list-none p-0 lg:flex lg:flex-col lg:h-full lg:justify-between lg:pt-2">
               {data.infoBullets.map((item) => (
                 <IconTextItem
                   key={item.text}
@@ -99,18 +84,29 @@ export function EventSection({ data }: EventSectionProps) {
               ))}
             </ul>
           </div>
-
-          {/* Botões */}
-          {/* <div className="order-3 mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
-            <ActionButton href={data.locationLinks.church}>
-              Ver igreja no mapa
-            </ActionButton>
-
-            <ActionButton href={data.locationLinks.restaurant}>
-              Ver restaurante no mapa
-            </ActionButton>
-          </div> */}
         </article>
+      </div>
+
+      <div className="mt-8 border-t border-t-dotted border-t-[#8d8b88] pt-8">
+        <SectionTitle className="mb-4 text-center lg:text-left">
+          LOCALIZAÇÃO
+        </SectionTitle>
+
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <LocationMap
+            title="Paz Church"
+            address={data.addresses.church}
+            mapUrl={data.locationLinks.church}
+            externalUrl={data.locationLinks.church}
+          />
+
+          <LocationMap
+            title="Via Brasil"
+            address={data.addresses.restaurant}
+            mapUrl={data.locationLinks.restaurant}
+            externalUrl={data.locationLinks.restaurant}
+          />
+        </div>
       </div>
     </SectionShell>
   );
