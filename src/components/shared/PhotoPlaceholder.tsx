@@ -17,7 +17,7 @@ export function PhotoPlaceholder({
       : "bg-[linear-gradient(25deg,#3a3a3a30,#ffffff30),repeating-linear-gradient(45deg,#1010101a_0_2px,transparent_2px_5px),linear-gradient(140deg,#9e9e9e,#d7d7d7)]";
 
   const classNames = [
-    "relative flex w-full items-end justify-start overflow-hidden border border-[#555]",
+    "relative flex w-full items-end justify-start overflow-hidden",
     toneClass,
     className,
   ]
