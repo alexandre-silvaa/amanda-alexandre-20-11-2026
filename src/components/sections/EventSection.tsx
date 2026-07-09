@@ -1,4 +1,6 @@
 import { Camera, ClockCheck, DollarSign, Gift } from "lucide-react";
+import FotoAbraco from "../../assets/abraco-porta.jpeg";
+import FotoCaminhando from "../../assets/caminhando.jpg";
 import type { InfoBullet, InviteData } from "../../data/weeding-data";
 import { IconTextItem } from "../shared/IconTextItem";
 import { MetaBar } from "../shared/MetaBar";
@@ -66,6 +68,7 @@ export function EventSection({ data }: EventSectionProps) {
             label="Foto do vestido e buquê"
             tone="warm"
             className="mt-4 aspect-3/4 rounded-[14px]"
+            image={FotoCaminhando}
           />
         </article>
 
@@ -76,6 +79,7 @@ export function EventSection({ data }: EventSectionProps) {
               label="Foto de abraço na porta"
               tone="warm"
               className="aspect-3/4 rounded-[14px]"
+              image={FotoAbraco}
             />
           </div>
 

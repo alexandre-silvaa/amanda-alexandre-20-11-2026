@@ -1,4 +1,5 @@
 import React from "react";
+import FotoPrincipal from "../../assets/principal.jpg";
 import type { InviteData } from "../../data/weeding-data";
 import { Countdown } from "../shared/Countdown";
 import { MetaBar } from "../shared/MetaBar";
@@ -39,6 +40,7 @@ export function HeroSection({ data }: HeroSectionProps) {
             label="Foto principal do casal"
             tone="bw"
             className="aspect-4/3"
+            image={FotoPrincipal}
           />
 
           <div className="my-5 flex flex-col-reverse gap-6 font-[Georgia_Pro] lg:grid lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-14">

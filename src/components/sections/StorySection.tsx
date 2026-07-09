@@ -1,3 +1,4 @@
+import FotoPortao from "../../assets/portao.jpg";
 import type { InviteData } from "../../data/weeding-data";
 import { MetaBar } from "../shared/MetaBar";
 import { PhotoPlaceholder } from "../shared/PhotoPlaceholder";
@@ -18,6 +19,7 @@ export function StorySection({ data }: StorySectionProps) {
           label="Foto do casal no portão"
           tone="bw"
           className="aspect-3/4 rounded-[14px]"
+          image={FotoPortao}
         />
 
         <article className="flex flex-col justify-between h-full">
