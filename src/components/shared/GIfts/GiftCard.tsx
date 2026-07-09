@@ -7,8 +7,8 @@ interface Props {
 
 export function GiftCard({ gift, onSelect }: Props) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-      <div className="aspect-square overflow-hidden bg-zinc-100">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+      <div className="aspect-4/3 overflow-hidden bg-zinc-100">
         <img
           src="https://picsum.photos/200/300"
           alt={gift.name}
@@ -17,15 +17,13 @@ export function GiftCard({ gift, onSelect }: Props) {
         />
       </div>
 
-      <div className="space-y-3 p-5">
-        <span className="inline-flex rounded-full bg-stone-100 px-3 py-1 text-xs font-medium text-stone-700">
-          {gift.category}
-        </span>
+      <div className="flex flex-1 flex-col gap-3 p-3">
+        <h3 className="line-clamp-2 font-semibold text-zinc-900 text-fluid">
+          {gift.name}
+        </h3>
 
-        <h3 className="line-clamp-2 text-lg font-semibold">{gift.name}</h3>
-
-        <div className="flex items-center justify-between pt-2">
-          <span className="text-xl font-bold text-stone-800">
+        <div className="mt-auto flex flex-col gap-3 pt-1 sm:flex-row sm:items-end sm:justify-between">
+          <span className="text-xl font-bold leading-none text-stone-700 sm:text-[1.45rem]">
             {gift.price.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
@@ -34,7 +32,7 @@ export function GiftCard({ gift, onSelect }: Props) {
 
           <button
             onClick={() => onSelect(gift)}
-            className="rounded-xl bg-stone-800 px-4 py-2 text-sm font-medium text-white transition hover:bg-stone-700 focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-xl bg-stone-800 px-3 py-2 font-['Garet'] text-center text-xs  text-[#f2f1ef] no-underline"
           >
             Presentear
           </button>
