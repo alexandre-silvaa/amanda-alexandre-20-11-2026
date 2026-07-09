@@ -1,3 +1,5 @@
+import { CalendarHeart, HandHeart, MessageSquareHeart } from "lucide-react";
+
 export type TimelineItem = {
   time: string;
   title: string;
@@ -6,6 +8,7 @@ export type TimelineItem = {
 export type HistoryMilestone = {
   title: string;
   date: string;
+  icon: React.ReactNode;
 };
 
 export type InfoBullet = {
@@ -78,9 +81,21 @@ export const inviteData: InviteData = {
   storyQuote:
     "“Hoje, rodeados de pessoas especiais, estamos muito felizes por iniciar este novo capítulo de nossas vidas. Obrigado por fazerem parte da nossa história e por celebrarem este dia inesquecível conosco.”",
   historyMilestones: [
-    { title: "A PRIMEIRA VEZ QUE NOS VIMOS", date: "24 de junho de 2022" },
-    { title: "PRIMEIRO ENCONTRO", date: "16 de julho de 2022" },
-    { title: "PEDIDO DE CASAMENTO", date: "05 de dezembro de 2024" },
+    {
+      title: "A PRIMEIRA VEZ QUE NOS VIMOS",
+      date: "24 de junho de 2022",
+      icon: <MessageSquareHeart size={28} />,
+    },
+    {
+      title: "PRIMEIRO ENCONTRO",
+      date: "16 de julho de 2022",
+      icon: <CalendarHeart size={28} />,
+    },
+    {
+      title: "PEDIDO DE CASAMENTO",
+      date: "05 de dezembro de 2024",
+      icon: <HandHeart size={28} />,
+    },
   ],
   historyNumbers: [
     { value: "1588", label: "Dias Corridos" },
