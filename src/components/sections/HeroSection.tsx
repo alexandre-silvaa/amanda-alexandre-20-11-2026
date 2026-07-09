@@ -52,7 +52,7 @@ export function HeroSection({ data }: HeroSectionProps) {
                 - Amanda e Alexandre
               </cite>
             </blockquote>
-            <p className="m-0 text-fluid-copy">{data.introText}</p>
+            <p className="m-0 text-fluid">{data.introText}</p>
           </div>
 
           <div
