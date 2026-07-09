@@ -19,10 +19,24 @@ export interface Gift {
   image: string;
 }
 
+export const GiftPixPaymentStatus = {
+  Pending: "pending",
+  Approved: "approved",
+  Rejected: "rejected",
+  Cancelled: "cancelled",
+  InProcess: "in_process",
+  PendingWaitingTransfer: "pending_waiting_transfer",
+  Refunded: "refunded",
+  ChargedBack: "charged_back",
+  Expired: "expired",
+} as const;
+
+export type GiftPixPaymentStatus =
+  (typeof GiftPixPaymentStatus)[keyof typeof GiftPixPaymentStatus];
+
 export interface GiftPixPayment {
-  orderId?: string;
   paymentId?: string;
-  status?: string;
+  status?: GiftPixPaymentStatus;
   statusDetail?: string;
   ticketUrl?: string;
   qrCode: string;
