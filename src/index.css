@@ -115,8 +115,20 @@
 }
 
 @layer utilities {
-  .text-fluid-copy {
-    font-size: clamp(1.45rem, 1.6vw, 1.65rem);
+  .title-fluid {
+    font-size: 1.5rem;
     line-height: 1.25;
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.75rem;
+    }
+  }
+  .text-fluid {
+    font-size: 1.15rem;
+    line-height: 1.25;
+
+    @media screen and (min-width: 768px) {
+      font-size: 1.15rem;
+    }
   }
 }
