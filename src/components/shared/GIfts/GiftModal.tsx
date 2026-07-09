@@ -69,10 +69,10 @@ export function GiftModal({ gift, onClose }: Props) {
     };
   }, [giftId, payment?.paymentId, payment?.status]);
 
-  if (!gift) return null;
-
   const generatePix = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!gift) return;
+
     setIsLoading(true);
     setPaymentState(null);
 
@@ -121,10 +121,33 @@ export function GiftModal({ gift, onClose }: Props) {
         ? "Pendente"
         : (payment?.status ?? "Aguardando");
 
+  useEffect(() => {
+    if (!gift) return;
+
+    const bodyStyle = document.body.style;
+    const previousOverflow = bodyStyle.overflow;
+    const previousPaddingRight = bodyStyle.paddingRight;
+    const scrollbarWidth =
+      window.innerWidth - document.documentElement.clientWidth;
+
+    bodyStyle.overflow = "hidden";
+
+    if (scrollbarWidth > 0) {
+      bodyStyle.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      bodyStyle.overflow = previousOverflow;
+      bodyStyle.paddingRight = previousPaddingRight;
+    };
+  }, [gift]);
+
+  if (!gift) return null;
+
   if (payment?.status === GiftPixPaymentStatus.Approved) {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-        <div className="w-full max-w-md rounded-2xl bg-white p-6 text-center shadow-2xl sm:p-8">
+      <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-black/60 p-2 pt-8 sm:items-center sm:p-4">
+        <div className="max-h-[calc(100svh-0.5rem)] w-full max-w-md overflow-y-auto overscroll-contain rounded-3xl bg-white p-5 pb-[calc(env(safe-area-inset-bottom)+1rem)] text-center shadow-2xl supports-[height:100dvh]:max-h-[calc(100dvh-0.5rem)] sm:max-h-[calc(100vh-2rem)] sm:rounded-2xl sm:p-8 sm:pb-8">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
             <svg
               viewBox="0 0 24 24"
@@ -138,15 +161,15 @@ export function GiftModal({ gift, onClose }: Props) {
             </svg>
           </div>
 
-          <h2 className="text-3xl font-bold text-stone-900">
+          <h2 className="text-2xl font-bold text-stone-900 sm:text-3xl">
             Pagamento aprovado
           </h2>
-          <p className="mt-3 text-base text-zinc-600">
+          <p className="mt-3 text-sm text-zinc-600 sm:text-base">
             Seu Pix foi confirmado. Obrigado por fazer parte desse momento.
           </p>
 
-          <div className="mt-6 rounded-xl bg-emerald-50 p-4 text-left text-sm text-emerald-900">
-            <p className="font-semibold">{gift.name}</p>
+          <div className="mt-5 rounded-xl bg-emerald-50 p-4 text-left text-sm text-emerald-900">
+            <p className="font-semibold wrap-break-word">{gift.name}</p>
             <p className="mt-1">
               {gift.price.toLocaleString("pt-BR", {
                 style: "currency",
@@ -157,7 +180,7 @@ export function GiftModal({ gift, onClose }: Props) {
 
           <button
             onClick={onClose}
-            className="mt-6 w-full rounded-xl bg-stone-800 py-3 font-semibold text-white transition hover:bg-stone-700"
+            className="mt-5 min-h-12 w-full rounded-xl bg-stone-800 px-4 py-3 font-semibold text-white transition hover:bg-stone-700"
           >
             Fechar
           </button>
@@ -167,12 +190,16 @@ export function GiftModal({ gift, onClose }: Props) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-      <div className="max-h-[92vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl sm:p-8">
-        <div className="mb-6 flex items-start justify-between">
-          <div>
-            <h2 className="text-2xl font-bold">{gift.name}</h2>
-            <p className="mt-1 text-base text-zinc-500">{gift.category}</p>
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-black/60 p-2 pt-8 sm:items-center sm:p-4">
+      <div className="max-h-[calc(100svh-0.5rem)] w-full max-w-lg overflow-y-auto overscroll-contain rounded-3xl bg-white p-5 pb-[calc(env(safe-area-inset-bottom)+1rem)] shadow-2xl supports-[height:100dvh]:max-h-[calc(100dvh-0.5rem)] sm:max-h-[calc(100vh-2rem)] sm:rounded-2xl sm:p-8 sm:pb-8">
+        <div className="mb-5 flex items-start justify-between gap-4 sm:mb-6">
+          <div className="min-w-0 flex-1">
+            <h2 className="wrap-break-word text-xl font-bold text-zinc-900 sm:text-3xl">
+              {gift.name}
+            </h2>
+            <p className="mt-1 wrap-break-word text-xs font-medium uppercase tracking-widest text-zinc-500 sm:text-base sm:tracking-[0.08em]">
+              {gift.category}
+            </p>
           </div>
 
           <button
@@ -185,7 +212,7 @@ export function GiftModal({ gift, onClose }: Props) {
         </div>
 
         <div className="mb-6 text-center">
-          <span className="text-4xl font-bold text-stone-800">
+          <span className="text-2xl font-bold text-stone-800 sm:text-4xl">
             {gift.price.toLocaleString("pt-BR", {
               style: "currency",
               currency: "BRL",
@@ -203,7 +230,7 @@ export function GiftModal({ gift, onClose }: Props) {
                 onChange={(event) => setPayerEmail(event.target.value)}
                 placeholder="seuemail@exemplo.com"
                 required
-                className="mt-2 w-full rounded-xl border px-4 py-3 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
+                className="mt-2 min-h-12 w-full rounded-xl border px-4 py-3 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
               />
             </label>
 
@@ -214,7 +241,7 @@ export function GiftModal({ gift, onClose }: Props) {
                   value={documentType}
                   onChange={(event) => setDocumentType(event.target.value)}
                   required
-                  className="mt-2 w-full rounded-xl border px-4 py-3 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
+                  className="mt-2 min-h-12 w-full rounded-xl border px-4 py-3.5 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
                 >
                   <option value="CPF">CPF</option>
                   <option value="CNPJ">CNPJ</option>
@@ -230,7 +257,7 @@ export function GiftModal({ gift, onClose }: Props) {
                   placeholder="Apenas números"
                   required
                   inputMode="numeric"
-                  className="mt-2 w-full rounded-xl border px-4 py-3 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
+                  className="mt-2 min-h-12 w-full rounded-xl border px-4 py-3 font-normal outline-none transition focus:border-stone-500 focus:ring-2 focus:ring-stone-200"
                 />
               </label>
             </div>
@@ -244,7 +271,7 @@ export function GiftModal({ gift, onClose }: Props) {
             <button
               type="submit"
               disabled={isLoading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-stone-800 py-3 font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-zinc-300"
+              className="flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-stone-800 px-4 py-3 font-semibold text-white transition hover:bg-stone-700 disabled:cursor-not-allowed disabled:bg-zinc-300"
             >
               {isLoading ? (
                 <>
@@ -269,7 +296,7 @@ export function GiftModal({ gift, onClose }: Props) {
               </p>
 
               {payment.paymentId ? (
-                <span className="text-xs text-zinc-500">
+                <span className="break-all text-right text-xs text-zinc-500">
                   ID {payment.paymentId}
                 </span>
               ) : null}
@@ -283,10 +310,14 @@ export function GiftModal({ gift, onClose }: Props) {
               <img
                 src={`data:image/png;base64,${payment.qrCodeBase64}`}
                 alt="QR Code Pix"
-                className="mx-auto h-56 w-56"
+                className="mx-auto h-auto w-full max-w-52 sm:max-w-60"
               />
             ) : (
-              <QRCode value={payment.qrCode} size={224} className="mx-auto" />
+              <QRCode
+                value={payment.qrCode}
+                size={192}
+                className="mx-auto h-auto w-full max-w-52 sm:max-w-60"
+              />
             )}
 
             <div className="space-y-3 rounded-xl bg-stone-50 p-4">
@@ -298,7 +329,7 @@ export function GiftModal({ gift, onClose }: Props) {
                 type="button"
                 onClick={copyPixCode}
                 disabled={isCopying}
-                className="w-full rounded-xl border border-stone-300 py-3 text-sm font-semibold text-stone-800 transition hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-60"
+                className="min-h-12 w-full rounded-xl border border-stone-300 px-4 py-3 text-sm font-semibold text-stone-800 transition hover:bg-stone-100 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isCopying ? "Copiando..." : "Copiar código Pix"}
               </button>
@@ -308,7 +339,7 @@ export function GiftModal({ gift, onClose }: Props) {
                   href={payment.ticketUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="block w-full rounded-xl bg-stone-800 py-3 text-center text-sm font-semibold text-white transition hover:bg-stone-700"
+                  className="block min-h-12 w-full rounded-xl bg-stone-800 px-4 py-3 text-center text-sm font-semibold text-white transition hover:bg-stone-700"
                 >
                   Abrir ticket
                 </a>
@@ -319,7 +350,7 @@ export function GiftModal({ gift, onClose }: Props) {
 
         <button
           onClick={onClose}
-          className="mt-6 w-full rounded-xl border py-3 transition hover:bg-zinc-50"
+          className="mt-6 min-h-12 w-full rounded-xl border px-4 py-3 transition hover:bg-zinc-50"
         >
           Fechar
         </button>
