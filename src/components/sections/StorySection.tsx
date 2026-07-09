@@ -11,7 +11,7 @@ type StorySectionProps = {
 
 export function StorySection({ data }: StorySectionProps) {
   const quoteBlockClasses =
-    "flex flex-col gap-3 md:mb-8 lg: text-fluid italic text-justify";
+    "flex flex-col gap-3 mb-8 md:mb-0 md:py-3 md:my-3 text-fluid italic text-justify";
 
   return (
     <SectionShell id="historia">
@@ -61,35 +61,52 @@ export function StorySection({ data }: StorySectionProps) {
           <SectionTitle className="title-fluid text-center">
             RESUMO DA NOSSA HISTÓRIA
           </SectionTitle>
-          <ul className="m-0 list-none p-0">
+
+          <div className="mx-auto flex w-full max-w-92 flex-col gap-2.5">
             {data.historyMilestones.map((item) => (
-              <li key={item.title} className="mb-4">
-                <h6 className="m-0 font-['Garet'] text-[1.2rem] tracking-[0.03em]">
-                  {item.title}
-                </h6>
-                <p className="m-0 text-[1.2rem]">{item.date}</p>
-              </li>
+              <div
+                key={item.title}
+                className="flex min-h-16 w-full items-center gap-4"
+              >
+                <span className="inline-flex shrink-0 items-center justify-center">
+                  {item.icon}
+                </span>
+
+                <div className="flex min-w-0 flex-col">
+                  <h6 className="m-0 whitespace-nowrap font-['Garet'] text-base tracking-[0.03em] lg:text-lg">
+                    {item.title}
+                  </h6>
+                  <p className="m-0 whitespace-nowrap text-sm lg:text-base">
+                    {item.date}
+                  </p>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </article>
 
-        <article className="border-t border-t-dotted border-t-[#8d8b88] pt-4 lg:border-l lg:border-l-dotted lg:border-l-[#8d8b88] lg:border-t-0 lg:pl-6 lg:pt-0">
+        <article className="border-t border-t-dotted border-t-[#8d8b88] pt-4 md:pt-8 lg:border-l lg:border-l-dotted lg:border-l-[#8d8b88] lg:border-t-0 lg:pl-6 lg:pt-0">
           <SectionTitle className="title-fluid text-center">
             NOSSOS DIAS EM NÚMEROS
           </SectionTitle>
-          <ul className="m-0 list-none p-0">
+          <ul className="mx-auto flex h-full w-full max-w-92 list-none flex-col p-0">
             {data.historyNumbers.map((item) => (
-              <li key={item.label} className="mb-2 flex items-baseline gap-3.5">
-                <span className="min-w-16 text-[1.8rem] italic">
+              <li
+                key={item.label}
+                className="grid min-h-10 w-full grid-cols-[4rem_12rem] place-items-center justify-center text-center"
+              >
+                <span className="min-w-16 shrink-0 text-xl italic lg:text-2xl">
                   {item.value}
                 </span>
-                <p className="m-0 text-[1.7rem]">{item.label}</p>
+                <p className="m-0 w-full whitespace-nowrap text-center text-lg lg:text-xl">
+                  {item.label}
+                </p>
               </li>
             ))}
+            <li className="mt-2 whitespace-nowrap text-center text-xl lg:text-2xl">
+              4 anos, 4 meses e 4 dias no dia do Sim!
+            </li>
           </ul>
-          <p className="m-0 text-[1.7rem]">
-            4 anos, 4 meses e 4 dias no dia do Sim!
-          </p>
         </article>
       </div>
     </SectionShell>
