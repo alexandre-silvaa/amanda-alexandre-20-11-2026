@@ -10,31 +10,43 @@ type StorySectionProps = {
 };
 
 export function StorySection({ data }: StorySectionProps) {
+  const quoteBlockClasses =
+    "flex flex-col gap-3 md:mb-8 lg: text-fluid italic text-justify";
+
   return (
     <SectionShell id="historia">
       <MetaBar city={data.city} dateLabel={data.newspaperDate} />
 
-      <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div className="mt-4 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:mb-8">
         <PhotoPlaceholder
           label="Foto do casal no portão"
           tone="bw"
-          className="aspect-3/4 rounded-[14px]"
+          className="aspect-3/4 rounded-[14px] lg:h-150"
           image={FotoPortao}
         />
 
-        <article className="flex flex-col justify-between h-full">
+        <article className="flex flex-col h-full lg:justify-between">
           <SectionTitle className="text-center lg:text-left">
             {data.storyTitle}
           </SectionTitle>
           {data.storyParagraphs.map((paragraph) => (
-            <p key={paragraph} className="mb-4 text-fluid-copy text-justify">
+            <p key={paragraph} className="mb-4 text-fluid text-justify">
               {paragraph}
             </p>
           ))}
+          <div className={`hidden lg:flex ${quoteBlockClasses}`}>
+            <blockquote>
+              <p>{data.storyQuote1}</p>
+            </blockquote>
+
+            <blockquote>
+              <p>{data.storyQuote}</p>
+            </blockquote>
+          </div>
         </article>
       </div>
 
-      <div className="flex flex-col gap-4 mb-8 md:mb-0 md:py-4 md:my-4 text-2xl italic text-justify ">
+      <div className={`lg:hidden ${quoteBlockClasses}`}>
         <blockquote>
           <p>{data.storyQuote1}</p>
         </blockquote>
@@ -46,7 +58,7 @@ export function StorySection({ data }: StorySectionProps) {
 
       <div className="grid grid-cols-1 gap-6 border-t border-t-dotted border-t-[#8d8b88] pt-8 lg:grid-cols-2">
         <article>
-          <SectionTitle className="text-fluid-copy text-center">
+          <SectionTitle className="title-fluid text-center">
             RESUMO DA NOSSA HISTÓRIA
           </SectionTitle>
           <ul className="m-0 list-none p-0">
@@ -62,7 +74,7 @@ export function StorySection({ data }: StorySectionProps) {
         </article>
 
         <article className="border-t border-t-dotted border-t-[#8d8b88] pt-4 lg:border-l lg:border-l-dotted lg:border-l-[#8d8b88] lg:border-t-0 lg:pl-6 lg:pt-0">
-          <SectionTitle className="text-fluid-copy text-center">
+          <SectionTitle className="title-fluid text-center">
             NOSSOS DIAS EM NÚMEROS
           </SectionTitle>
           <ul className="m-0 list-none p-0">
