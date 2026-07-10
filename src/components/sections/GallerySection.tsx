@@ -11,8 +11,8 @@ import galleryPhoto7 from "../../assets/gallery/7.jpeg";
 import galleryPhoto8 from "../../assets/gallery/8.jpeg";
 import galleryPhoto9 from "../../assets/gallery/9.jpeg";
 import galleryPhoto10 from "../../assets/gallery/10.jpg";
-import galleryPhoto11 from "../../assets/gallery/11.jpeg";
-import galleryPhoto12 from "../../assets/gallery/12.jpeg";
+import galleryPhoto11 from "../../assets/gallery/eleven.jpeg";
+import galleryPhoto12 from "../../assets/gallery/twelve.jpeg";
 
 const galleryPhotos = [
   {
