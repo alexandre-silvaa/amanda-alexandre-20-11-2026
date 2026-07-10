@@ -16,7 +16,9 @@ export function GiftCard({ gift, onSelect }: Props) {
           src={imageSrc}
           alt={gift.name}
           loading="lazy"
-          onError={() => setImageSrc(`https://picsum.photos/seed/gift-${gift.id}/1200/900`)}
+          onError={() =>
+            setImageSrc(`https://picsum.photos/seed/gift-${gift.id}/1200/900`)
+          }
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
       </div>

@@ -1,15 +1,15 @@
-import type { InviteData } from '../../data/weeding-data'
+import type { InviteData } from "../../data/weeding-data";
 
 type FooterSectionProps = {
-  data: InviteData
-}
+  data: InviteData;
+};
 
 export function FooterSection({ data }: FooterSectionProps) {
   return (
-    <footer className="mx-auto max-w-[1060px] border-y-[4px] border-y-double border-[#202020]">
-      <div className="py-[1.1rem] text-center text-[2rem] italic">
+    <footer className="mx-auto max-w-265 border-y-4 border-y-double border-[#202020]">
+      <div className="py-[1.1rem] text-center text-[1.5rem] italic">
         <p className="m-0">{data.footerText}</p>
       </div>
     </footer>
-  )
+  );
 }

@@ -126,7 +126,7 @@ const catalog = [
     items: [
       "Geladeira",
       "Freezer",
-      "Adega",
+      "Máquina de Lavar Louça",
       "Lava Louças",
       "Purificador",
       "Bebedouro",

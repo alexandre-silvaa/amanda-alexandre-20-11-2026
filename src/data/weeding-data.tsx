@@ -32,9 +32,6 @@ export type InviteData = {
   storyQuote: string;
   historyMilestones: HistoryMilestone[];
   historyNumbers: { label: string; value: string }[];
-  quizStatements: string[];
-  wordSearchGrid: string[];
-  wordList: string[];
   timeline: TimelineItem[];
   addresses: {
     church: string;
@@ -49,11 +46,6 @@ export type InviteData = {
     title: string;
     description: string;
     url: string;
-  };
-  rsvp: {
-    title: string;
-    description: string;
-    googleFormsUrl: string;
   };
   footerText: string;
 };
@@ -104,43 +96,6 @@ export const inviteData: InviteData = {
     { value: "323", label: "Dias Planejando" },
     { value: "∞", label: "Depois do Sim" },
   ],
-  quizStatements: [
-    "Fui eu quem deu o primeiro passo.",
-    "Eu sempre estou certo(a).",
-    "Fui eu quem disse “eu te amo” primeiro.",
-    "Eu cozinho melhor.",
-    "Sou mais organizado.",
-    "Sou mais aventureiro.",
-    "Passo mais tempo nas redes sociais.",
-    "Eu me apaixonei primeiro.",
-    "Eu me arrumo mais rápido.",
-    "Eu sou mais engraçado.",
-  ],
-  wordSearchGrid: [
-    "STOETOGEIARCRIEOEO",
-    "CASAMENTOEEXDETHNG",
-    "AIESETTISIYIEGHLSSA",
-    "YASTERSEIRPEYIUOAN",
-    "FBCALALIANCAAEEGTO",
-    "ATTBLIOOOIBODITYNS",
-    "IWSERDNAXELANSNASE",
-    "AAINSDYIENCIAATSCC",
-    "WLLMIETLKSCHMCICEN",
-    "ONUUSTRNMEIOAAPRSO",
-    "SAHMRTTILCRFTBFSNG",
-    "IWTAEWSRNOIVADOOOK",
-  ],
-  wordList: [
-    "ALEXANDRE",
-    "ALIANÇA",
-    "AMANDA",
-    "CASAMENTO",
-    "DEUS",
-    "FAMÍLIA",
-    "LINIKER",
-    "NAMORO",
-    "NOIVADO",
-  ],
   timeline: [
     { time: "16:30", title: "Chegada na Paz Church" },
     { time: "17:00", title: "Início da Cerimônia" },
@@ -180,11 +135,6 @@ export const inviteData: InviteData = {
     description:
       "Ainda não temos o link oficial da lista de casamentos. Assim que estiver disponível, vamos atualizar aqui.",
     url: "",
-  },
-  rsvp: {
-    title: "CONFIRMAÇÃO DE PRESENÇA",
-    description: "Confirme sua presença pelo nosso formulário no Google Forms.",
-    googleFormsUrl: "https://forms.gle/SEU_LINK_AQUI",
   },
   footerText: "Com amor, Amanda e Alexandre",
 };
