@@ -79,7 +79,6 @@ function GiftListing({ gifts, onSelect }: GiftListingProps) {
         onNextPage={goToNextPage}
         onPreviousPage={goToPreviousPage}
         onPageSizeChange={setPageSize}
-        compact
       />
     </div>
   );
