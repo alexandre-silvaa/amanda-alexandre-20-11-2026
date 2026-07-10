@@ -7,6 +7,8 @@ import { StorySection } from "./components/sections/StorySection";
 import { inviteData } from "./data/weeding-data";
 import { tw } from "./styles/tw";
 import { initializeMercadoPago } from "./utils/mercadoPago";
+import { FooterSection } from "./components/sections/FooterSection";
+import { GallerySection } from "./components/sections/GallerySection";
 
 function App() {
   useEffect(() => {
@@ -21,9 +23,8 @@ function App() {
       <StorySection data={inviteData} />
       <EventSection data={inviteData} />
       <GiftsSection />
-      {/* <RsvpSection data={inviteData} /> */}
-      {/* <GallerySection /> */}
-      {/* <FooterSection data={inviteData} /> */}
+      <GallerySection />
+      <FooterSection data={inviteData} />
     </div>
   );
 }
