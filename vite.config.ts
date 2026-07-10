@@ -22,5 +22,6 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [pixOrderApiPlugin(), react(), tailwindcss()],
+    base: "/",
   };
 });
