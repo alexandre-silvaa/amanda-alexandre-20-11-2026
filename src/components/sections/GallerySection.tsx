@@ -40,7 +40,7 @@ export function GallerySection() {
             <img
               src={photo.src}
               alt={photo.alt}
-              loading="lazy"
+              loading="eager"
               className="h-full w-full object-bottom object-cover"
             />
           </div>
