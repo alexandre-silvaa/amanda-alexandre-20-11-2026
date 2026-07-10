@@ -1,24 +1,19 @@
 import { SectionShell } from "../shared/SectionShell";
 import { SectionTitle } from "../shared/SectionTitle";
 import { MetaBar } from "../shared/MetaBar";
-import galleryPhoto1 from "../../assets/gallery/1.jpg";
-import galleryPhoto2 from "../../assets/gallery/2.jpg";
-import galleryPhoto3 from "../../assets/gallery/3.jpeg";
-import galleryPhoto4 from "../../assets/gallery/4.jpeg";
-import galleryPhoto5 from "../../assets/gallery/5.jpeg";
-import galleryPhoto6 from "../../assets/gallery/6.jpeg";
-import galleryPhoto7 from "../../assets/gallery/7.jpeg";
-import galleryPhoto8 from "../../assets/gallery/8.jpeg";
-import galleryPhoto9 from "../../assets/gallery/9.jpeg";
-import galleryPhoto10 from "../../assets/gallery/10.jpg";
-import galleryPhoto11 from "../../assets/gallery/eleven.jpeg";
-import galleryPhoto12 from "../../assets/gallery/twelve.jpeg";
+import galleryPhoto1 from "../../assets/gallery/1.webp";
+import galleryPhoto2 from "../../assets/gallery/2.webp";
+import galleryPhoto3 from "../../assets/gallery/3.webp";
+import galleryPhoto4 from "../../assets/gallery/4.webp";
+import galleryPhoto5 from "../../assets/gallery/5.webp";
+import galleryPhoto6 from "../../assets/gallery/6.webp";
+import galleryPhoto7 from "../../assets/gallery/7.webp";
+import galleryPhoto8 from "../../assets/gallery/8.webp";
+import galleryPhoto9 from "../../assets/gallery/9.webp";
+import galleryPhoto10 from "../../assets/gallery/10.webp";
 
 const galleryPhotos = [
-  {
-    src: galleryPhoto1,
-    alt: "Foto do casal 01",
-  },
+  { src: galleryPhoto1, alt: "Foto do casal 01" },
   { src: galleryPhoto2, alt: "Foto do casal 02" },
   { src: galleryPhoto3, alt: "Foto do casal 03" },
   { src: galleryPhoto4, alt: "Foto do casal 04" },
@@ -28,8 +23,6 @@ const galleryPhotos = [
   { src: galleryPhoto8, alt: "Foto do casal 08" },
   { src: galleryPhoto9, alt: "Foto do casal 09" },
   { src: galleryPhoto10, alt: "Foto do casal 10" },
-  { src: galleryPhoto11, alt: "Foto do casal 11" },
-  { src: galleryPhoto12, alt: "Foto do casal 12" },
 ];
 
 export function GallerySection() {
@@ -37,7 +30,7 @@ export function GallerySection() {
     <SectionShell id="galeria">
       <MetaBar shouldNotShowEndBorder />
 
-      <SectionTitle>GALERIA DE FOTOS</SectionTitle>
+      <SectionTitle>Galeria de Fotos</SectionTitle>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
         {galleryPhotos.map((photo) => (
           <div
