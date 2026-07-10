@@ -4,7 +4,7 @@ import { MetaBar } from "../shared/MetaBar";
 import galleryPhoto1 from "../../assets/gallery/1.jpg";
 import galleryPhoto2 from "../../assets/gallery/2.jpg";
 import galleryPhoto3 from "../../assets/gallery/3.jpeg";
-import galleryPhoto4 from "../../assets/gallery/3.jpeg";
+import galleryPhoto4 from "../../assets/gallery/4.jpeg";
 import galleryPhoto5 from "../../assets/gallery/5.jpeg";
 import galleryPhoto6 from "../../assets/gallery/6.jpeg";
 import galleryPhoto7 from "../../assets/gallery/7.jpeg";
