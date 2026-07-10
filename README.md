@@ -2,7 +2,7 @@
 
 ## Pix Mercado Pago
 
-O fluxo de presentes cria pagamentos Pix pela Orders API do Mercado Pago no
+O fluxo de presentes cria pagamentos Pix pela Payments API do Mercado Pago no
 endpoint server-side `/api/create-pix-order`.
 
 Configure as variáveis de ambiente:
@@ -15,12 +15,16 @@ MERCADO_PAGO_PIX_EXPIRATION_TIME=PT24H
 
 `VITE_MERCADO_PAGO_PUBLIC_KEY` configura o SDK no frontend com
 `loadMercadoPago()`. `MERCADO_PAGO_ACCESS_TOKEN` fica apenas no servidor e é
-usado para criar a order no Mercado Pago.
+usado para criar o pagamento no Mercado Pago.
 
-O frontend pede o e-mail do convidado no modal de presente e envia esse e-mail
-com o presente escolhido para `/api/create-pix-order`. O servidor cria uma order
-`online` com `processing_mode: "automatic"` e `payment_method.id: "pix"`,
-retornando apenas os dados necessários para renderizar o QR Code.
+O frontend pede e-mail, tipo do documento e número do documento no modal de
+presente e envia esses dados com o presente escolhido para `/api/create-pix-order`.
+O servidor cria um pagamento com `payment_method_id: "pix"`,
+`transaction_amount`, `description` e `payer.identification`, além de enviar
+`X-Idempotency-Key` em cada requisição.
+
+O retorno usa `point_of_interaction.transaction_data` para renderizar QR Code,
+copiar e colar Pix e link do ticket quando o Mercado Pago fornecer esses dados.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -39,9 +43,9 @@ If you are developing a production application, we recommend updating the config
 
 ```js
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
 
@@ -56,40 +60,40 @@ export default defineConfig([
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x";
+import reactDom from "eslint-plugin-react-dom";
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(["dist"]),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ["**/*.{ts,tsx}"],
     extends: [
       // Other configs...
       // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
+      reactX.configs["recommended-typescript"],
       // Enable lint rules for React DOM
       reactDom.configs.recommended,
     ],
     languageOptions: {
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
         tsconfigRootDir: import.meta.dirname,
       },
       // other options...
     },
   },
-])
+]);
 ```
