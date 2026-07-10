@@ -2,6 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { LoaderCircle, X } from "lucide-react";
 import { type FormEvent, useEffect, useState } from "react";
 import QRCode from "react-qr-code";
+import { toast } from "sonner";
 import {
   GiftPixPaymentStatus,
   type Gift,
@@ -24,6 +25,8 @@ interface PaymentState {
 }
 
 export function GiftModal({ gift, onClose }: Props) {
+  const CREATE_PIX_ERROR_TOAST_ID = "create-pix-error";
+  const STATUS_PIX_ERROR_TOAST_ID = "status-pix-error";
   const [paymentState, setPaymentState] = useState<PaymentState | null>(null);
   const [payerEmail, setPayerEmail] = useState("");
   const [documentType, setDocumentType] = useState("CPF");
@@ -56,8 +59,16 @@ export function GiftModal({ gift, onClose }: Props) {
           payment: nextPayment,
           error: null,
         });
-      } catch {
+        toast.dismiss(STATUS_PIX_ERROR_TOAST_ID);
+      } catch (err) {
         if (!active) return;
+
+        const message =
+          err instanceof Error
+            ? err.message
+            : "Nao foi possivel consultar status do Pix.";
+
+        toast.error(message, { id: STATUS_PIX_ERROR_TOAST_ID });
       }
     };
 
@@ -89,6 +100,7 @@ export function GiftModal({ gift, onClose }: Props) {
         payment: nextPayment,
         error: null,
       });
+      toast.dismiss(CREATE_PIX_ERROR_TOAST_ID);
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Não foi possível gerar o Pix.";
@@ -98,6 +110,8 @@ export function GiftModal({ gift, onClose }: Props) {
         payment: null,
         error: message,
       });
+
+      toast.error(message, { id: CREATE_PIX_ERROR_TOAST_ID });
     } finally {
       setIsLoading(false);
     }
@@ -110,6 +124,9 @@ export function GiftModal({ gift, onClose }: Props) {
 
     try {
       await navigator.clipboard.writeText(payment.qrCode);
+      toast.success("Código Pix copiado.");
+    } catch {
+      toast.error("Não foi possível copiar o código Pix.");
     } finally {
       setIsCopying(false);
     }

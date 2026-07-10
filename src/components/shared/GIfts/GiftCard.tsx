@@ -1,4 +1,5 @@
 import type { Gift } from "../../../types/gifts.types";
+import { useState } from "react";
 
 interface Props {
   gift: Gift;
@@ -6,13 +7,16 @@ interface Props {
 }
 
 export function GiftCard({ gift, onSelect }: Props) {
+  const [imageSrc, setImageSrc] = useState(gift.image);
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
       <div className="aspect-4/3 overflow-hidden bg-zinc-100">
         <img
-          src="https://picsum.photos/200/300"
+          src={imageSrc}
           alt={gift.name}
           loading="lazy"
+          onError={() => setImageSrc(`https://picsum.photos/seed/gift-${gift.id}/1200/900`)}
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         />
       </div>
