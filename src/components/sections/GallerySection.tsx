@@ -4,17 +4,15 @@ import { MetaBar } from "../shared/MetaBar";
 import galleryPhoto1 from "../../assets/gallery/1.jpg";
 import galleryPhoto2 from "../../assets/gallery/2.jpg";
 import galleryPhoto3 from "../../assets/gallery/3.jpeg";
+import galleryPhoto4 from "../../assets/gallery/3.jpeg";
 import galleryPhoto5 from "../../assets/gallery/5.jpeg";
 import galleryPhoto6 from "../../assets/gallery/6.jpeg";
 import galleryPhoto7 from "../../assets/gallery/7.jpeg";
 import galleryPhoto8 from "../../assets/gallery/8.jpeg";
 import galleryPhoto9 from "../../assets/gallery/9.jpeg";
 import galleryPhoto10 from "../../assets/gallery/10.jpg";
-import galleryPhoto11 from "../../assets/gallery/11.JPEG";
-import galleryPhoto12 from "../../assets/gallery/12.JPEG";
-
-const galleryPhoto4 = new URL("../../assets/gallery/4.JPEG", import.meta.url)
-  .href;
+import galleryPhoto11 from "../../assets/gallery/11.jpeg";
+import galleryPhoto12 from "../../assets/gallery/12.jpeg";
 
 const galleryPhotos = [
   {
