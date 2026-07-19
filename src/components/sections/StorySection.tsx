@@ -1,4 +1,4 @@
-import FotoPortao from "../../assets/portao.jpg";
+import FotoPortao from "../../assets/portao.webp";
 import type { InviteData } from "../../data/weeding-data";
 import { MetaBar } from "../shared/MetaBar";
 import { PhotoPlaceholder } from "../shared/PhotoPlaceholder";

@@ -1,5 +1,5 @@
 import React from "react";
-import FotoPrincipal from "../../assets/principal.jpg";
+import FotoPrincipal from "../../assets/principal.webp";
 import type { InviteData } from "../../data/weeding-data";
 import { Countdown } from "../shared/Countdown";
 import { MetaBar } from "../shared/MetaBar";

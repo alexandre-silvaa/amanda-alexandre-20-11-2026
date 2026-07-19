@@ -1,6 +1,6 @@
 import { Camera, ClockCheck, DollarSign, Gift } from "lucide-react";
-import FotoAbraco from "../../assets/abraco-porta.jpeg";
-import FotoCaminhando from "../../assets/caminhando.jpg";
+import FotoAbraco from "../../assets/abraco-porta.webp";
+import FotoCaminhando from "../../assets/caminhando.webp";
 import type { InfoBullet, InviteData } from "../../data/weeding-data";
 import { IconTextItem } from "../shared/IconTextItem";
 import { LocationMap } from "../shared/LocationMap";
