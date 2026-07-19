@@ -19,6 +19,11 @@ export interface Gift {
   image: string;
 }
 
+export interface CatalogItems {
+  category: GiftCategory;
+  items: { item: string; image?: string }[];
+}
+
 export const GiftPixPaymentStatus = {
   Pending: "pending",
   Approved: "approved",
