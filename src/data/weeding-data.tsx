@@ -99,7 +99,7 @@ export const inviteData: InviteData = {
   timeline: [
     { time: "16:30", title: "Chegada na Paz Church" },
     { time: "17:00", title: "Início da Cerimônia" },
-    { time: "19:30", title: "Restaurante Via Brasil" },
+    { time: "19:30", title: "Eventos Damas e José" },
     { time: "20:00", title: "Fotos" },
   ],
   addresses: {
@@ -123,7 +123,7 @@ export const inviteData: InviteData = {
     },
     {
       icon: "money",
-      text: "No restaurante Via Brasil, cada pessoa será responsável pelo pagamento da sua comanda.",
+      text: "No Eventos Damas e José, cada pessoa será responsável pelo pagamento da sua comanda.",
     },
     {
       icon: "gift",

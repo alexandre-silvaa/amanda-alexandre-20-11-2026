@@ -101,7 +101,7 @@ export function EventSection({ data }: EventSectionProps) {
           />
 
           <LocationMap
-            title="Via Brasil"
+            title="Eventos Damas e José"
             address={data.addresses.restaurant}
             mapUrl={data.locationLinks.restaurant}
             externalUrl={data.locationLinks.restaurant}
