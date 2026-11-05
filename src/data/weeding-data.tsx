@@ -104,13 +104,13 @@ export const inviteData: InviteData = {
   ],
   addresses: {
     church: "R. Lituânia, 918 - Jardim Europa",
-    restaurant: "R. Fernando Silva, 110 - Jardim Astro",
+    restaurant: "Rua Luis Paes de Almeida, 228 - Vila Raszl",
   },
   locationLinks: {
     church:
       "https://www.google.com/maps/search/?api=1&query=R.+Litu%C3%A2nia,+918+-+Jardim+Europa,+Sorocaba",
     restaurant:
-      "https://www.google.com/maps/search/?api=1&query=R.+Fernando+Silva,+110+-+Jardim+Astro,+Sorocaba",
+      "https://www.google.com/maps/search/?api=1&query=Rua+Luis+Paes+de+Almeida,+228+-+Vila+Raszl,+Sorocaba%2FSP",
   },
   infoBullets: [
     {
