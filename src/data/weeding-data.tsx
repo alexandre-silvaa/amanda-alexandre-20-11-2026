@@ -122,10 +122,6 @@ export const inviteData: InviteData = {
       text: "Preparem-se para muitas fotos, queremos registrar cada momento com vocês!",
     },
     {
-      icon: "money",
-      text: "No Eventos Damas e José, cada pessoa será responsável pelo pagamento da sua comanda.",
-    },
-    {
       icon: "gift",
       text: "Se quiser nos presentear, ficaremos muito felizes!",
     },
